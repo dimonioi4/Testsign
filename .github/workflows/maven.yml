@@ -1,21 +1,15 @@
-name: Java CI # как называется Workflow
-
-on: # когда срабатывает (на push)
+on:
   push:
     branches:
     - master
 
-jobs: # какие задачи делаем
- e2e-tests:
+jobs:
+  e2e-tests:
     runs-on: ubuntu-latest # or macos-latest, windows-latest
-    runs-on: ubuntu-latest # на какой ОС запускаем
-
-    steps: # какие шаги выполняем
-     - uses: actions/checkout@v2
-
+    steps:
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-
       - uses: microsoft/playwright-github-action@v1
-
-      - name: Install dependencies and run tests
-        run: npm install && npm test
+      - run: npm install
+      - run: node demo.js
+      - uses: actions/upload-artifact@v2
